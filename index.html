@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walton Atrila – Resume</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      --bg-color: #000;
+      --text-color: #fff;
+      --primary-color: #0a84ff;
+    }
+    [data-theme="light"] {
+      --bg-color: #fff;
+      --text-color: #000;
+      --primary-color: #0a84ff;
+    }
+    /* Light mode adjustments for visibility */
+    [data-theme="light"] h2 {
+      border-bottom-color: rgba(0,0,0,0.2);
+    }
+    [data-theme="light"] .timeline::before {
+      background: rgba(0,0,0,0.2);
+    }
+    [data-theme="light"] .timeline-item .date {
+      color: rgba(0,0,0,0.6);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 4rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      backdrop-filter: blur(20px);
+      background: rgba(0,0,0,0.5);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    [data-theme="light"] header {
+      background: rgba(255,255,255,0.5);
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; }
+    nav { display: flex; gap: 1rem; align-items: center; }
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .theme-switch {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.5rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .theme-switch:hover { color: var(--primary-color); }
+    /* Ensure nav text remains white in light mode */
+    /* Light mode nav colors */
+    [data-theme="light"] nav a {
+      color: var(--text-color); /* black on desktop */
+    }
+    [data-theme="light"] .theme-switch {
+      color: var(--text-color);
+    }
+    @media (max-width: 768px) {
+      [data-theme="light"] nav.open a,
+      [data-theme="light"] .theme-switch {
+        color: #fff; /* white in mobile dropdown */
+      }
+    }
+    nav a:hover { color: var(--primary-color); transform: scale(1.05); }
+    .theme-switch {
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .theme-switch:hover { color: var(--primary-color); }
+    .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; }
+    .hamburger div { width: 24px; height: 3px; background: var(--text-color); transition: background 0.3s; }
+    section {
+      max-width: 700px;
+      margin: 8rem auto;
+      padding: 0 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    section.visible { opacity: 1; transform: translateY(0); }
+    h2 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid rgba(255,255,255,0.2);
+      padding-bottom: 0.5rem;
+    }
+    ul { list-style: none; padding-left: 0; }
+    p, ul { margin-top: 1rem; }
+    li { margin-bottom: 0.5rem; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skills-list li {
+      background: var(--primary-color);
+      color: var(--bg-color);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.3s;
+    }
+    .skills-list li:hover { transform: scale(1.1); }
+    .timeline { position: relative; margin: 2rem 0; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; top: 0; left: 1rem; width: 2px; height: 100%; background: rgba(255,255,255,0.2); }
+    .timeline-item { position: relative; margin-bottom: 4rem; }
+    .timeline-item::before { content: ''; position: absolute; top: 0; left: -1.1rem; width: 12px; height: 12px; background: var(--primary-color); border-radius: 50%; }
+    .timeline-item h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+    .timeline-item .date { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem; }
+    .timeline-item p { margin: 0.5rem 0 0; }
+    /* Contact section */
+    #contact { margin: 8rem auto; max-width: 700px; padding: 0 1rem; }
+    .contact-container { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
+    .contact-image img { width: 200px; height: 200px; object-fit: cover; border-radius: 8px; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-info a { color: var(--text-color); text-decoration: none; transition: color 0.3s; }
+    .contact-info a:hover { color: var(--primary-color); }
+    @media (max-width: 768px) { .contact-container { flex-direction: column; text-align: center; } .contact-image img { margin: 0 auto; } }
+    footer { text-align: center; margin: 8rem 0 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        flex-direction: column; justify-content: center;
+        background: rgba(0,0,0,0.8);
+        transform: translateY(-100%);
+        transition: transform 0.6s ease, opacity 0.6s ease;
+        opacity: 0;
+      }
+      nav.open { transform: translateY(0); opacity: 1; }
+      nav a { font-size: 1.5rem; text-align: center; }
+      header { padding: 1rem; }
+      body { padding-top: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Walton Atrila</div>
+    <nav id="nav-menu">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#languages">Languages</a>
+      <a href="#focus">Performance</a>
+      <a href="#contact">Contact me</a>
+      <span class="theme-switch" id="theme-switch">Light Mode</span>
+    </nav>
+    <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
+  </header>
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Motivated computer science student at Åbo Akademi University with a passion for software development and technology-driven innovation. Eager to contribute to real-world projects through a trainee position. I’m a fast learner with a hands-on approach, strong communication skills, and a proven ability to lead, organize, and solve problems under pressure. I enjoy working in a team, but can also perform independently.</p>
+    </section>
+    <section id="skills">
+      <h2>Technical Skills</h2>
+      <ul class="skills-list">
+        <li>HTML</li><li>CSS</li><li>JavaScript</li><li>React (basics)</li><li>Python</li><li>Java</li><li>Git</li><li>VS Code</li>
+      </ul>
+    </section>
+    <section id="projects">
+      <h2>Self-Initiated Projects</h2>
+      <ul>
+        <li><strong>Infarf.fi Webpage</strong> – Responsive site for our student organization built with HTML, CSS, and JavaScript.</li>
+        <li><strong>Driving Strategy Tool</strong> – Developed a dynamic driving strategy tool using programming and data analysis to optimize race performance in driving simulators.</li>
+      </ul>
+    </section>
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h3>Event Manager</h3><div class="date">2022–2024</div><p>Åbo Akademi Study Board – Organized events, led a team of 4, managed logistics, communications, and tech tools.</p></div>
+        <div class="timeline-item"><h3>Pick-Nick Personal</h3><div class="date">2024–Present</div><p>Viking Line – Customer service and restaurant assistance on board.</p></div>
+        <div class="timeline-item"><h3>Tutor</h3><div class="date">2023</div><p>Åbo Akademi University – Guided new students, supported onboarding.</p></div>
+        <div class="timeline-item"><h3>Taxi Driver</h3><div class="date">2023–2024</div><p>T Taxi Finland Oy – Safe and punctual transport services.</p></div>
+        <div class="timeline-item"><h3>Pool Security & Bartender</h3><div class="date">2022</div><p>Clarion Hotel Helsinki – Ensured guest safety and service quality.</p></div>
+        <div class="timeline-item"><h3>Moderator</h3><div class="date">2021</div><p>Finnavia / TBWA Helsinki – Moderated a launch event.</p></div>
+        <div class="timeline-item"><h3>Crew Member</h3><div class="date">2018–2021</div><p>Burger King Espoonlahti – Food prep and customer service.</p></div>
+      </div>
+    </section>
+    <section id="education">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h3>Åbo Akademi University</h3><div class="date">2022–Present</div><p>– BSc Computer Science & Organisation and Management.</p></div>
+        <div class="timeline-item"><h3>Arcada UAS</h3><div class="date">2021–2022</div><p>Information Technology – Completed coursework in networking, programming, and information systems.</p></div>
+      </div>
+    </section>
+    </section>
+    <section id="languages">
+      <h2>Languages</h2>
+      <ul>
+        <li>Swedish – Native</li>
+        <li>Finnish – Native</li>
+        <li>English – Fluent</li>
+      </ul>
+    </section>
+    <section id="focus">
+      <h2>Performance & Focus</h2>
+      <ul>
+        <li>eMotorsport Competitor and Strategist (2024–Present).</li>
+        <li>Participated in high-pressure eMotorsport competitions requiring intense focus and
+            decision-making for 60–120 minutes per session.</li>
+        <li>Developed advanced driving strategies using data analysis and coding to optimize
+            performance.</li>
+        <li>Trained and maintained high mental performance, focus, and stress tolerance in
+            competitive digital environments—skills directly transferable to demanding tech tasks and
+            development projects.</li>
+      </ul>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+          <div class="contact-image"><img src="pictures/43C49815-2BF7-4457-8588-C2FDFA11C637-FB50F3AE-85C4-421C-9AD5-54ADE60DAEBF.JPG" alt="Walton Atrila"></div>
+          <div class="contact-info">
+            <p>📍 Turku, Finland</p>
+            <p>📞 <a href="tel:+358445105518">+358 44 5105518</a></p>
+            <p>✉️ <a href="mailto:watrila@gmail.com">watrila@gmail.com</a></p>
+            <p>🔗 <a href="https://linkedin.com/in/walton-atrila" target="_blank" rel="noopener noreferrer">linkedin.com/in/walton-atrila</a></p>
+          </div>
+        </div>
+      </section>
+  </main>
+  <footer>&copy; 2025 Walton Atrila</footer>
+  <script>
+    // Theme switch
+    const themeSwitch = document.getElementById('theme-switch');
+    themeSwitch.addEventListener('click', () => {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      themeSwitch.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
+      localStorage.setItem('theme', next);
+    });
+    // Initialize theme & animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('theme');
+      if (stored) {
+        document.documentElement.setAttribute('data-theme', stored);
+        themeSwitch.textContent = stored === 'dark' ? 'Light Mode' : 'Dark Mode';
+      }
+      const sections = document.querySelectorAll('section');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => entry.target.classList.toggle('visible', entry.isIntersecting));
+      }, { threshold: 0.2 });
+      sections.forEach(section => observer.observe(section));
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('nav-menu');
+      hamburger.addEventListener('click', () => navMenu.classList.toggle('open'));
+      document.querySelectorAll('#nav-menu a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+    });
+  </script>
+</body>
+</html>
